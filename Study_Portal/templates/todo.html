@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block body_block %}
+  <div class="container">
+    <div class="row">
+      <table class="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">S.N</th>
+            <th scope="col">Title</th>
+            <th scope="col">Status</th>
+
+          </tr>
+        </thead>
+        <tbody>
+            {% for i in todo_obj %}
+            <tr>
+              <th scope="row">{{ forloop.counter }}</th>
+              <td>{{i.title}}</td>
+
+              <td><a href="{% url 'study_portal_app:todo_update' pk=i.id %}">
+                 <div class="form-check form-switch">
+                   {% if i.status == True %}
+                   <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+                   {% else %}
+                   <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked">
+                   {% endif %}
+                  <label class="form-check-label text-white" for="flexSwitchCheckChecked"> Mark as Completed</label>
+                </div>
+              </a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+
+      <div class="form-control">
+
+      </div>
+    </div>
+  </div>
+{% endblock %}

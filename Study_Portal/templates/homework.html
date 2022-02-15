@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block body_block %}
+<div class="container">
+    {% if not hw_finished %}
+  <table class="table table-dark mt-4">
+  <thead>
+    <tr>
+      <th scope="col">S.L</th>
+      <th scope="col">Subject</th>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">Due</th>
+      <th scope="col">Status</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for i in hw_obj %}
+    <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+      <td>{{ i.subject }}</td>
+      <td>{{ i.title }}</td>
+      <td>{{ i.description }}</td>
+      <td>{{ i.due }}</td>
+
+      <td><a href="{% url 'study_portal_app:homework_update' pk=i.id %}">
+         <div class="form-check form-switch">
+           {% if i.status == True %}
+           <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+           {% else %}
+           <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked">
+           {% endif %}
+          <label class="form-check-label text-white" for="flexSwitchCheckChecked"> Mark as Completed</label>
+        </div>
+      </a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+  <div class="alert alert-success">
+    Your all HomeWork is done!
+  </div>
+{% endif %}
+
+<div class="form-control mt-4">
+  <form method="POST">
+    {{ form|crispy }}
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary mt-4">Submit</button>
+  </form>
+</div>
+
+</div>
+{% endblock %}

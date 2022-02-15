@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block body_block %}
+<div class="container">
+  <div class="row">
+        <div class="input-group mb-3">
+            <form method="POST">
+              {{form}}
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger" name="button">Search</button>
+            </form>
+          </div>
+        </div>
+  </div>
+
+<div class="container">
+    <div class="col-lg-4">
+    {% for i in result_list %}
+      <div class="card "style="width: 18rem;">
+        <a href="{{i.preview}}" target="_blank">
+          <img class="card-img-top" src="{{i.thumbnail}}" alt="Card image cap">
+          <div class="card-header">
+            <p class="card-text">{{i.title}}</p>
+            <p class="card-text">{{i.subtitle}}</p>
+            <p class="card-text">{{i.count}}</p>
+            <p class="card-text">{{i.rating}}</p>
+          </div>
+          <div class="card-body">
+            <p class="card-text"></p>
+            <p class="card-text"></p>
+          </div>
+          </a>
+      </div>
+    {% endfor %}
+    </div>
+  </div>
+
+{% endblock %}
